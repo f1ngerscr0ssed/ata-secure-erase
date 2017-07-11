@@ -6,6 +6,7 @@
 
 # (C) 2015 TigerOnVaseline
 # https://github.com/TigerOnVaseline/ata-secure-erase
+# Modified to unfreeze disk by calling  echo -n mem > /sys/power/state
 
 # This code is licensed under MIT license:
 # http://opensource.org/licenses/MIT
@@ -89,7 +90,9 @@ fi
 
 # Check for frozen state
 if [ "$(hdparm -I ${ata_disk} 2>&1| awk '/frozen/ { print $1 }')" != "not" ]; then
-	echo >&2 "Error: Disk ${ata_disk} security state is frozen, check https://ata.wiki.kernel.org/index.php/ATA_Secure_Erase for possible solutions"
+	echo >&2 "Warning: Disk ${ata_disk} security state is frozen. Device will be automatically put into 'sleep' mode to unfreeze the disk. Press the power button to wake up the device and run this script again to continue. "
+	sleep 5
+	echo -n mem > /sys/power/state
 	exit 1
 fi
 
