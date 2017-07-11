@@ -92,7 +92,7 @@ fi
 if [ "$(hdparm -I ${ata_disk} 2>&1| awk '/frozen/ { print $1 }')" != "not" ]; then
 	echo >&2 "Warning: Disk ${ata_disk} security state is frozen."
 	echo "To unfreeze the disk, the device will be put in suspend mode"
-	echo "After it has been suspended, press the POWER button to wake it up and run again this script to continue."
+	echo "After it has been suspended, press the POWER button to wake it up (In some cases you might need to run the script again)"
 	echo "Continue [Y/N]?"
 	read user_choice
 fi
@@ -100,6 +100,8 @@ fi
 if [ "${user_choice}" == "Y" ]; then
 	sleep 2 | echo "Attempting to suspend device..." 
 	echo -n mem > /sys/power/state
+	sleep 2 | echo "Resuming procedure..."
+
 else
 	echo "Secure erase operation cancelled"
 	exit 0
