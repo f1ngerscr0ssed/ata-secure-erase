@@ -3,7 +3,7 @@ Version:        0.1
 Release:        1%{?dist}
 Summary:        A bash script to securely erase ATA disk
 
-Group:          System Environment/Shells
+Group:          System Environment/Tools
 License:        MIT
 URL:            https://github.com/f1ngerscr0ssed/ata-secure-erase
 Source0:        ata-secure-erase-%{version}.tar.gz
